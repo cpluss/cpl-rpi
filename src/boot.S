@@ -5,6 +5,7 @@
 .section ".text.boot"
 
 .globl __start
+.extern kmain
 
 /* Entrypoint of the actual kernel */
 __start:
@@ -33,8 +34,8 @@ __start:
 
     /* Call kmain, this is where we "trampoline" to
        the C code... */
-#    ldr r3, =kmain
-#    blx r3
+    ldr r3, =kmain
+    blx r3
 
 __stop:
     wfe

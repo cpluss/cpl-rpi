@@ -15,7 +15,7 @@ OBJS    := $(patsubst src/%,bin/objs/%,$(OBJS))
 
 # build flags
 DEPENDFLAGS := -MD -MP
-INCLUDES    := -I include
+INCLUDES    := -I src
 BASEFLAGS   := -O2 -fpic -pedantic -pedantic-errors -nostdlib
 BASEFLAGS   += -nostartfiles -ffreestanding -nodefaultlibs
 BASEFLAGS   += -fno-builtin -fomit-frame-pointer -mcpu=arm1176jzf-s
@@ -33,7 +33,7 @@ WARNFLAGS   += -Wno-unused-but-set-variable -Wno-unused-result
 WARNFLAGS   += -Wwrite-strings -Wdisabled-optimization -Wpointer-arith
 WARNFLAGS   += -Werror
 ASFLAGS     := $(INCLUDES) $(DEPENDFLAGS) -D__ASSEMBLY__
-CFLAGS      := $(INCLUDES) $(DEPENDFLAGS) $(BASEFLAGS) $(WARNFLAGS)
+CFLAGS      := $(INCLUDES) $(DEPENDFLAGS) $(BASEFLAGS) #$(WARNFLAGS)
 CFLAGS      += -std=gnu99
 
 # build rules
@@ -63,7 +63,7 @@ directories:
 # C compile
 bin/objs/%.o: src/%.c Makefile
 	@echo CC $<
-	@$(ARM)-gcc $(CFLAGS) -c $< -o $@
+	$(ARM)-gcc $(CFLAGS) -c $< -o $@
 
 # Assembly compile
 bin/objs/%.o: src/%.S Makefile
