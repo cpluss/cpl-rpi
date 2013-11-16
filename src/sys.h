@@ -56,4 +56,30 @@ uint MailboxRead(char channel);
  Read mailbox status */
 uint MailboxStatus();
 
+/* GPU Framebuffer structure */
+typedef struct gpu {
+    /* Requested width and height */
+    uint width, height; 
+
+    /* Virtual width and height, better set it zero */
+    uint virtual_width,virtual_height;
+
+    /* Number of bytes between each row of the frame buffer,
+       returned by the GPU */
+    uint pitch;
+
+    /* The number of bits per pixel of the requested frame buffer, 
+       Linux seems to use 16bit, but we set default 24 */
+    uint depth;
+
+    /* Offsets in both y- and x-directions */
+    uint x_offset, y_offset;
+
+    /* Pointer to the frame buffer, returned by the GPU */
+    uint pointer;
+
+    /* Actual size of the frame buffer */
+    uint size;
+} gpu_t;
+
 #endif

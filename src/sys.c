@@ -70,3 +70,49 @@ uint MailboxRead(char channel) {
        is the channel */
     return (ret & 0xFFFFFFF0);
 }
+
+/*
+  Request a framebuffer from the GPU */
+gpu_t *RequestFramebuffer(uint w, uint h) {
+    // Create our request structure
+    gpu_t *req = (gpu_t*)KERNEL_FB_LOC;
+    req->width = w;
+    req->height = h;
+    req->virtual_width = w;
+    req->virtual_height = h;
+    req->pitch = 0; //Returned by GPU
+    req->depth = 24;
+    req->x_offset = req->y_offset = 0;
+    req->pointer = 0;
+    req->size = 0;
+
+    // Convert to bus-addr
+    uint reqAddr = phys_to_bus((uint)req);
+    // Write the address to the GPU through the mailbox
+    MailboxWrite(1, reqAddr);
+
+    // Read the response, properly ...
+    uint response = 0xFF, t = 10000;
+    while(response != 0 && --t > 0) {
+        response = MailboxRead(1);
+    }
+
+    // Did the GPU response all to slow?
+    if(t <= 0) {
+        //TODO: Add proper error handling
+        return req;
+    }
+
+    // Is the pointer returned actually valid?
+    if(!req->pointer || !req->pitch) {
+        //TODO: Add proper error handling
+        return req;
+    }
+
+    // Convert the GPU bus address into a proper physical one
+    req->pointer = bus_to_phys(req->pointer);
+
+    /* Return the request, properly filled out and accepted
+       by the GPU */
+    return req;
+}
