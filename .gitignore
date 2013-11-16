@@ -5,3 +5,5 @@
 .\#*
 *.swp
 *.d
+kernel.elf
+kernel.img
