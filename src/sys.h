@@ -82,4 +82,7 @@ typedef struct gpu {
     uint size;
 } gpu_t;
 
+/* Request framebuffer from GPU */
+gpu_t *RequestFramebuffer(uint w, uint h);
+
 #endif
