@@ -37,7 +37,7 @@ CFLAGS      := $(INCLUDES) $(DEPENDFLAGS) $(BASEFLAGS) #$(WARNFLAGS)
 CFLAGS      += -std=gnu99
 
 # build rules
-.PHONY: all clean directories
+.PHONY: all clean directories test
 
 all: bin/kernel.img
 
@@ -54,6 +54,10 @@ clean:
 	@echo Cleaning ...
 	@rm -rf bin
 	@mkdir -p bin/objs
+
+# test the code, using custom built qemu with rpi support
+test:
+	qemu-system-arm -kernel bin/kernel.elf -cpu arm1176 -M raspi -serial stdio
 
 # create directories needed to compile
 directories:
