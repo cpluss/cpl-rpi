@@ -67,7 +67,7 @@ directories:
 # C compile
 bin/objs/%.o: src/%.c Makefile
 	@echo CC $<
-	$(ARM)-gcc $(CFLAGS) -c $< -o $@
+	@$(ARM)-gcc $(CFLAGS) -c $< -o $@
 
 # Assembly compile
 bin/objs/%.o: src/%.S Makefile
