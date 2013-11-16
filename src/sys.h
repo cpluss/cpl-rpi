@@ -13,7 +13,17 @@
 #define ARM_PERIPHERAL_BASE (uint)0x20000000
 #define ARM_COUNTER_ADDR    (uint)0x20003004
 
-/* To communicate with the GPU mailbox */
+/* To communicate with the rpi mailbox 
+    This is hardware based communication and can happen
+    through numereous channels:
+        * 0 - Power management interface
+        * 1 - Framebuffer (GPU)
+        * 2 - Virtual UART
+        * 3 - VCHIQ Interface (no idea what this is)
+        * 4 - LEDs interface
+        * 5 - Buttons interface
+        * 6 - Touch screen interface
+ */
 #define ARM_MAIL_BASE       (uint)0x2000B880
 /* Mailbox can either be empty or full */
 #define MAIL_FULL           0x80000000
