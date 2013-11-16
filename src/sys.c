@@ -27,7 +27,7 @@ void mem_barrier() {
 
 /* 
  Return the mailbox status */
-void MailboxStatus() {
+uint MailboxStatus() {
     volatile uint *p = (volatile uint*)(ARM_MAIL_BASE + ARM_MAIL_STATUS);
     return (uint)(*p);
 }
