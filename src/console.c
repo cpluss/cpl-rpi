@@ -3,7 +3,7 @@
 
 // Keep track of cursor location
 static console_t cons;
-#define PADDING 2
+#define PADDING 1
 
 void console_init(uint width, uint height) {
     cons.x = cons.y = PADDING;
