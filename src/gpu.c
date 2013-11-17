@@ -1,20 +1,15 @@
 #include "gpu.h"
 #include "sys.h"
 
-// Temporary logging, for now
-#include "uart.h"
+#include "log.h"
 
 /* We need to store a copy of the gpu structure returned by 
    the actual gpu */
 static gpu_t *gpu;
 
 void gpu_init(uint w, uint h) {
-    //TODO: proper error-handling
-    
     gpu = RequestFramebuffer(w, h);
-    
-    //TODO: Change this when proper logging has been implemented
-    uart_puts("GPU: Framebuffer acquired, drawing has been enabled.\n");
+    log_write(LOG_INFO, "GPU: Acquired framebuffer.");
 }
 
 /* Clear the screen to a single color */

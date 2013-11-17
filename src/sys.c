@@ -1,4 +1,5 @@
 #include "sys.h"
+#include "log.h"
 
 /*
  The rpi requires you to translate requests between _bus_ and _physical_
@@ -99,13 +100,13 @@ gpu_t *RequestFramebuffer(uint w, uint h) {
 
     // Did the GPU response all to slow?
     if(t <= 0) {
-        //TODO: Add proper error handling
+        log_write(LOG_ERR, "GPU: Could not acquire framebuffer, returning false-positive. Hardware were too slow to answer.\n");
         return req;
     }
 
     // Is the pointer returned actually valid?
     if(!req->pointer || !req->pitch) {
-        //TODO: Add proper error handling
+        log_write(LOG_ERR, "GPU: Could not acquire framebuffer, returning false-positive. Hardware did not seem to deliver an answer to framebuffer request.\n");
         return req;
     }
 

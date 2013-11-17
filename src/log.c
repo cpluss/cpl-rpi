@@ -3,15 +3,19 @@
 
 void log_debug(const char *msg) {
     uart_puts(msg);
+    uart_puts("\n");
 }
 void log_warning(const char *msg) {
     uart_puts(msg);
+    uart_puts("\n");
 }
 void log_err(const char *msg) {
     uart_puts(msg);
+    uart_puts("\n");
 }
 void log_info(const char *msg) {
     uart_puts(msg);
+    uart_puts("\n");
 }
 
 /* Write a log message to the appropriate logs
@@ -30,4 +34,10 @@ void log_write(uint flags, const char *msg) {
     if(flags & LOG_ERR) {
         log_err(msg);
     }
+}
+
+/* Enable logging features such as UART */
+void log_init() {
+    uart_init();
+    log_write(LOG_INFO, "LOG: Logging has been initialized.");
 }

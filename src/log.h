@@ -1,6 +1,8 @@
 #ifndef LOG_H
 #define LOG_H
 
+#include "types.h"
+
 /*
  This is a very basic logging "service" for debug messages (uart)
  and (in the future) regular messages written directly to the screen
@@ -18,5 +20,8 @@ void log_info(const char *msg);
 
 /* Write to the appropriate logs depending on the flags provided */
 void log_write(uint flags, const char *msg);
+
+/* Initialize the logging interfaces available */
+void log_init();
 
 #endif

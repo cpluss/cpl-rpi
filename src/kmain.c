@@ -3,12 +3,14 @@
 #include "uart.h"
 #include "sys.h"
 #include "gpu.h"
+#include "log.h"
 
 void kmain(uint32_t r0, uint32_t r1, uint32_t atags) {
-    uart_init();
+    // Enable logging, the first thing we do
+    log_init();
 
-    uart_puts("UART Initialized ...\n");
-
+    // Initialize the GPU at 800x600 resolution
     gpu_init(800, 600);
-    gpu_clear(RGB(255,0,0));
+    // Clear to a black color
+    gpu_clear(0);
 }
