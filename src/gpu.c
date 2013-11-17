@@ -41,8 +41,8 @@ void gpu_putchar(char v, uint x, uint y, uint color) {
     }
 
     uint8_t *c = number_font[v], i, j;
-    for(i = 0; i < 8; i++) {
-        for(j = 0; j < 12; j++) {
+    for(i = 0; i < CHAR_HEIGHT; i++) {
+        for(j = 0; j < CHAR_WIDTH; j++) {
             if(c[i] & (1 << (8 - j))) {
                 gpu_putpixel(x + j, y + i, color);
             } else {

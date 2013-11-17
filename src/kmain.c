@@ -4,6 +4,7 @@
 #include "sys.h"
 #include "gpu.h"
 #include "log.h"
+#include "console.h"
 
 void kmain(uint32_t r0, uint32_t r1, uint32_t atags) {
     // Enable logging, the first thing we do
@@ -14,6 +15,11 @@ void kmain(uint32_t r0, uint32_t r1, uint32_t atags) {
     // Clear to a black color
     gpu_clear(0);
 
-    //Test to write a character
+    // Test to write a character
     gpu_putchar('A', 10, 10, RGB(255, 0, 0));
+
+    // Test the console
+    console_init(800, 600);
+    console_puts("ABCDEFGHIJKLMNOPQRSTUVXYZ abcdefghijklmnopqrstuvxyz \n0123456789\n");
+    console_puts("Hejj\b du!\n");
 }
