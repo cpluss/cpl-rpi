@@ -3,6 +3,9 @@
 
 #include "log.h"
 
+/* The default character character font, before I implement/port ttf */
+#include "default-font.h"
+
 /* We need to store a copy of the gpu structure returned by 
    the actual gpu */
 static gpu_t *gpu;
@@ -29,4 +32,22 @@ void gpu_putpixel(uint x, uint y, uint color) {
 
     // Set the actual pixel color
     *(uint*)(gpu->pointer + off) = color;
+}
+
+/* Default and simple way to draw a character */
+void gpu_putchar(char v, uint x, uint y, uint color) {
+    if(v > 128) {
+        v = 4;
+    }
+
+    uint8_t *c = number_font[v], i, j;
+    for(i = 0; i < 8; i++) {
+        for(j = 0; j < 12; j++) {
+            if(c[i] & (1 << (8 - j))) {
+                gpu_putpixel(x + j, y + i, color);
+            } else {
+                gpu_putpixel(x + j, y + i, 0); //Assume black background
+            }
+        }
+    }
 }

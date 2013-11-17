@@ -7,8 +7,6 @@
    handled here (except for the framebuffer aqcuisition, that
    takes place in sys.c). */
 
-/* The default font, before I implement/port ttf */
-//#include "default_font.h"
 
 /* Initialize the gpu in a specific resolution */
 void gpu_init(uint width, uint height);
